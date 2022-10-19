@@ -1,4 +1,4 @@
-def koperta(n:int)-> str:
+def koperta(n:int) -> str:
     img = ""
     for i in range(2*n+1):
         for j in range(2*n+1):
@@ -9,8 +9,12 @@ def koperta(n:int)-> str:
                     or i    == 2*n     # dół
                     or j    == 2*n     # prawo
                     ) else ' '
-        img+='\n'
-    
+        img += '\n'
     return img
 
-print(koperta(5), end='')
+
+show_koperta = lambda n: print(koperta(n))
+show_koperta(5)
+show_koperta(10)
+# print(koperta(5))
+# print(koperta(10))

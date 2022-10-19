@@ -1,23 +1,24 @@
-import math
-def kolo(n:int) -> list[str]:
+def kolo(n: int) -> list[str]:
     img = []
-    d = 2*n +1
-    for i in range(1,d-2):
-        row = ''
-        for j in range(1,d-2):
-            row += '#' if (i-n)**2 + (j-n)**2 < (n-1)**2 \
-                    else ' '
+    d = 2 * n + 1
+    for i in range(1, d - 2):
+        row = ""
+        for j in range(1, d - 2):
+            # równianie koła : (x-a)^2 + (y-b)^2 = r^2
+            row += "#" if (i - n) ** 2 + (j - n) ** 2 < (n - 1) ** 2 else " "
         img.append(row)
-        
+
     return img
-    
-    
-def bauwan(a:int,b:int):
-    for i in range(a,b):
+
+
+def bauwan(a: int, b: int):
+    for i in range(a, b):
         k = kolo(i)
-        
+
         for line in k:
-            if '#' in line:
-                print(' '*(b-i) + line)
-            
-bauwan(5,8)
+            if "#" in line:
+                print(" " * (b - i) + line)
+
+
+bauwan(5, 8)
+bauwan(15, 32)
