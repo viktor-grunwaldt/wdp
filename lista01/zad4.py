@@ -108,6 +108,15 @@ def losuj3(n: int) -> str:
 
     return "".join(haslo_generator)
 
+def losuj_simple(n):
+    haslo = ""
+    while len(haslo) < n:
+        f = losuj_fragment()
+        aux = len(haslo) + len(f)
+        if n == aux or n - aux > 1:
+            haslo += f
+    return haslo
+    
 
 # print(*(losuj_haslo(8) for _ in range(10)), sep='\n')
 # print(*(losuj2(8) for _ in range(10)), sep='\n')

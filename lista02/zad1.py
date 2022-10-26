@@ -1,14 +1,5 @@
-# def krzyzyk3(n: int) -> str:
-#     return '\n'.join(
-#         ''.join('*' if ((i//n)*3 + j//n) % 2 == 1 # nieparzyste pola
-#                     or ((i//n)*3 + j//n)     == 4 # środek
-#                     else ' '
-#                 for j in range(3*n))
-#         for i in range(3*n)
-#     )
-
-
 # pattern szachownicy osiągniemy sprawdzjąc mod 2 sumy i + j
+# gdzie i, j są współrzędnymi
 def szachownica_gen(n: int, k: int) -> str:
     return '\n'.join(
         ''.join(('#'
@@ -19,12 +10,9 @@ def szachownica_gen(n: int, k: int) -> str:
     )
 
 
-show_szachownica = lambda n, k: print(szachownica_gen(n, k))
-szachownica = lambda f, *n: print(f(*n))
+szachownica = lambda n, k: print(szachownica_gen(n, k))
 
 
-szachownica(szachownica_gen, 4, 3)
+szachownica(4, 3)
 print("*"*40)
-show_szachownica(4, 3)
-print("*"*40)
-show_szachownica(8, 1)
+szachownica(8, 1)

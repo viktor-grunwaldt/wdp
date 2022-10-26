@@ -14,7 +14,7 @@ def num_len(n: int) -> int:
 def poliszinator(n: int) -> str:
     if n == 1:
         return "cyfrę"
-    elif 1 < (n % 10) < 5 and (n // 10) % 10 in (0, 2):
+    elif 1 < (n % 10) < 5 and (n // 10) % 10 != 1:
         return "cyfry"
     else:
         return "cyfr"

@@ -20,5 +20,54 @@ def dlc(n: int) -> str:
     return img
 
 
-print(dlc(123), end="")
-print(dlc(2137), end="")
+def dlc_simple(n: int) -> str:
+    num = str(n)
+    count_of_digits = len(num)
+    img = ""
+    for i in range(5):
+        # 7 kratek na miejsce: 5 dla wiersza liczby i 2 spacji
+        # ostatnie 2 kolumny spacji są pomijane przez - 2
+        for j in range(count_of_digits):
+            img += daj_cyfre(j)[i] + "  "
+        img += "\n"
+
+    return img
+
+##################################
+
+
+def dlc_oneliner(n: int) -> str:
+    return "\n".join(
+        "  ".join(
+            daj_cyfre(int(digit))[i]
+            for digit in str(n))
+        for i in range(5))
+
+
+# lista
+#     .chars()
+#     .map(int)
+#     .map(daj_cyfre)
+#     .map(itemgetter(i))
+#     .collect()
+
+
+# [[[    ]  [[     ]
+#   [    ]   [     ]
+#   [    ]], [     ]], ...]
+# chcemy zamienić na:
+# [[                 ],
+#  [                 ],
+#  [                 ]]
+# ta operacja nazywa się transpozycją
+# zip(*zagnieżdżona_lista)
+def dlc_but_with_transpositions(number: int) -> str:
+    # wczytujemy cyfry potrzebne do narysowania
+    digits = map(daj_cyfre, map(int, str(number)))
+    # łączymy wiersze każdej cyfry jako do jednego
+    return "\n".join(map("  ".join, zip(*digits)))
+
+
+print(dlc(123))
+print(dlc_oneliner(2137))
+print(dlc_but_with_transpositions(4242))

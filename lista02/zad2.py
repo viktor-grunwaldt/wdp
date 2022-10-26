@@ -16,5 +16,7 @@ def koperta(n:int) -> str:
 show_koperta = lambda n: print(koperta(n))
 show_koperta(5)
 show_koperta(10)
+show_koperta(1)
+show_koperta(0)
 # print(koperta(5))
 # print(koperta(10))
