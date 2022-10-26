@@ -1,3 +1,4 @@
+from more_itertools import flatten
 import numpy
 from math import ceil
 
@@ -27,20 +28,28 @@ def is_prime(num: int) -> bool:
 # which are smaller than 100_000
 # so I just generate numbers from 00 to 99
 # and insert somewhere before, after or inbetween "777"
-def generate_nums_with_sevens(lim: int) -> list[str]:
-    lucky = "777"
-    nums_to_insert = [f"{i:02}" for i in range(lim // 1000)]
+def generate_nums_with_sevens(numbers: int, seven_len: int) -> list[str]:
+    lucky = "7" * seven_len
+    upper_bound = 10 ** (numbers - seven_len)
+
+    def seq_dash_w(x, y):
+        return [str(i).zfill(numbers - seven_len) for i in range(x, y)]
+
+    nums_to_insert = seq_dash_w(0, upper_bound)
     res = []
-    for position in range(len(lucky) + 1):
+    for position in range(numbers - seven_len + 1):
         res.extend([n[:position] + lucky + n[position:] for n in nums_to_insert])
 
-    return res
+    # filter out invalid numbers
+    return [num for num in set(res) if num[0] != '0']
 
 
 def zad1() -> list[int]:
-    lucky_nums = map(int, generate_nums_with_sevens(LIMIT))
+    # wygeneruj 3 - 6cio cyfrowe liczby
+    all_sevens = [generate_nums_with_sevens(i, 3) for i in range(3, 7)]
+    lucky_nums = map(int, flatten(all_sevens))
     primes = set(primes_upto2(LIMIT))
-    return [lucky_num for lucky_num in lucky_nums if lucky_num in primes]
+    return list(filter(primes.__contains__, lucky_nums))
 
 
 lucky_primes = zad1()
@@ -49,6 +58,6 @@ print(f"oto one:\n{lucky_primes}")
 
 # PS: is_prime works, but it's O(sqrt(n)) for each prime,
 # which means (k * sqrt(n)) where k is the range size
-# prime sieve is has O(n * log (log n) and after transfomring it into a set
+# prime sieve is has O(n * log (log n)) and after transfomring it into a set
 # it has O(1) lookup time
 # PPS: yes, it's overkill, but I like to challenge myself
