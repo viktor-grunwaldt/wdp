@@ -58,7 +58,7 @@ def project_euler7():
 
 """
 Longest Collatz sequence
-[Show HTML problem content]  
+[Show HTML problem content]
 Problem 14
 
 The following iterative sequence is defined for the set of positive integers:
