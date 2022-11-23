@@ -39,4 +39,4 @@ def fac_set(n: int, primes) -> set[int]:
 
 
 ps = primes_upto(10000)
-print(fac_set(5040, ps))
+print(fac_set(36, ps))

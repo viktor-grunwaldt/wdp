@@ -1,7 +1,7 @@
 from duze_cyfry import daj_cyfre
 import turtle as t
 import random
-
+import numpy as np
 
 def move(x, y):
     t.penup()
@@ -74,8 +74,9 @@ def dlc_but_with_transpositions(number: int) -> str:
 
 def draw_number(num: int):
     grid = dlc_but_with_transpositions(num)
-    #CoLoRs
+    # CoLoRs
     w = 5 + 2  # dlc w + space w
+    np.random.random(3)
     colors = [[random.uniform(0, 1) for _ in range(3)] for _ in range(w)]
 
     for y, line in enumerate(grid.splitlines()):

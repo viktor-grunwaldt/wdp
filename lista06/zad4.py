@@ -10,6 +10,7 @@ import string
 def podziel(text: str) -> list[str]:
     mask = [c not in string.whitespace for c in text]
     grps = groupby(zip(mask, text), key=itemgetter(0))
+    print(list(grps))
     # print(list(filter(itemgetter(0), grps)))
     grps_no_spaces = ["".join(map(itemgetter(1), grp)) for _, grp in filter(itemgetter(0), grps)]
     return grps_no_spaces
