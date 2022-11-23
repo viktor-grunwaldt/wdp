@@ -50,7 +50,7 @@ def color_maker(brightness: bool):
 for i, row in enumerate(pattern):
     for j, elem in enumerate(row):
         kwadrat(x + j * edge_len, y + i * edge_len, edge_len, color_maker(elem))
-        # t.update()
+        t.update()
 
 
 t.update()

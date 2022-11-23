@@ -20,7 +20,7 @@ def collatz_len(n: int) -> int:
 
 def solve(lower_bound: int, upper_bound: int) -> tuple[float, int | float, int, int]:
     energies = list(map(collatz_len, range(lower_bound, upper_bound + 1)))
-
+    
     sol = (func(energies) for func in (mean, median, max, min))
     return sol
 
@@ -32,8 +32,8 @@ def show_sol(sol: tuple[float, int | float, int, int]):
         "maksimum: ",
         "minimum: ",
     ]
-    for l, val in zip(labels, sol):
-        print(l, val)
+    for lab, val in zip(labels, sol):
+        print(lab, val)
 
 
 sol = solve(1, 10_000)

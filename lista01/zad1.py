@@ -41,11 +41,10 @@ def oryginal():
 
 def poprawiony():
     def kwadrat(n: int, znak: str) -> str:
-        kw = (znak * n + "\n") * n
-        return kw
+        return (znak * n + "\n") * n
 
     for i in range(10):
-        print(i, 2**i, i**0.5)
+        print(i, 2**i, pow(2, i), i**0.5)
 
     for i in range(5):
         print("Przebieg:", i)

@@ -11,7 +11,7 @@ def move(x, y):
 
 
 # usable speed
-t.speed("fastest")
+# t.speed("fastest")
 # usable angle system
 t.radians()
 # usable coordinate mode
