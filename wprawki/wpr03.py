@@ -69,6 +69,7 @@ def draw_circle(x, y, rad, color=None):
         t.circle(rad)
         t.end_fill()
 
+
 color = {
     "1": (0,) * 3,
     "0": (0.95,) * 3,
@@ -78,9 +79,9 @@ color = {
 def draw_braille_char(x, y, edge_len, char):
     braille_char = code_table[char]
     for i, j in product(range(2), range(3)):
-        x_abs = x + edge_len/2 + i * edge_len
+        x_abs = x + edge_len / 2 + i * edge_len
         y_abs = y - edge_len - j * edge_len
-        draw_circle(x_abs, y_abs, edge_len/2, color[braille_char[i * 3 + j]])
+        draw_circle(x_abs, y_abs, edge_len / 2, color[braille_char[i * 3 + j]])
 
 
 def draw_braille_word(x, y, edge_len, word: str):
