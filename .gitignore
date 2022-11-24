@@ -132,3 +132,8 @@ dmypy.json
 # Large data from zad 2
 e_coli/
 
+# All larger files
+data/
+
+# VS Code settings
+.vscode/

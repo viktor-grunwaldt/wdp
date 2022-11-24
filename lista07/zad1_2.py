@@ -53,7 +53,7 @@ def test():
     ricky = qr_matrix_from_data("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
     out = "\n".join(" ".join("({},{},{})".format(*bool_to_rgb(b)) for b in row) for row in ricky)
     # write to file
-    with open("test.textimageformat", "w") as f:
+    with open("data/test.textimageformat", "w") as f:
         f.write(out)
 
 
@@ -68,7 +68,7 @@ def random_image(img: np.array) -> np.array:
 if __name__ == "__main__":
     what_is_love("""print("baby don't hurt me")""")
     # test()
-    with open("obrazek.txt") as f:
+    with open("data/obrazek.txt") as f:
         array = manly_man_parsing(f.read())
 
     # array = random_image(array)

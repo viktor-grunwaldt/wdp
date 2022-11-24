@@ -5,18 +5,18 @@ import re
 import requests
 
 
-def get_lalka():
-    if not os.path.isfile("lalka.txt"):
+def get_lalka(filename: str):
+    if not os.path.isfile(filename):
         try:
             result = requests.get("https://wolnelektury.pl/media/book/txt/lalka-tom-pierwszy.txt")
             data = result.text
         except Exception as e:
             raise e("fetching the book failed")
 
-        with open("lalka.txt", "w") as f:
+        with open(filename, "w") as f:
             f.write(data)
     else:
-        with open("lalka.txt", "r") as f:
+        with open(filename, "r") as f:
             data = f.read()
 
     return data
@@ -31,18 +31,23 @@ def calc_weight(word, count, alpha: int) -> int:
 
 
 def zad3(alpha):
-    data = get_lalka()
+    data = get_lalka("data/lalka.txt")
+    # strip unneeded symbols and casefold to remove capitalization problems
     # https://www.w3.org/TR/charmod-norm/#definitionCaseFolding
     data = re.sub(r"[^\w+]", " ", data).casefold()
-    # c_words = Counter(data).most_common()
-    ordered_words = [(w, calc_weight(w, c, alpha)) for w, c in Counter(data.split()).items()]
+
+    # count, calc and order words
+    ct = Counter(data.split()).items()
+    ordered_words = [(w, calc_weight(w, c, alpha)) for w, c in ct]
     top = sorted(ordered_words, key=itemgetter(1))[-10:]
+
     # calc str len for text justing
     max_col1, max_col2 = (max(len(str(i)) for i in col) for col in zip(*top))
     print_tabulated = lambda x, y: print(x.rjust(max_col1) + " | " + y.rjust(max_col2))
+
     # print table
     print_tabulated("word", "weight")
-    print("-" * (max_col1 + max_col2 + 5))
+    print("-" * max_col1 + "-+-" + "-" * max_col2)
     for word, weight in reversed(top):
         print_tabulated(word, str(weight))
 
