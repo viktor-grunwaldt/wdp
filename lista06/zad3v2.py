@@ -20,4 +20,4 @@ def factorisation_functional(n: int) -> set[int]:
 
 
 print(factorisation_functional(2 * 3 * 5 * 7 * 11 * 13))
-print(fac_shortest(4 * 3 * 5 * 7 * 11 * 13))
+print(fac_shortest(4 * 3 * 5 * 7 * 11 * 13 * 13))

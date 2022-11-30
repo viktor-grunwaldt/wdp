@@ -1,5 +1,4 @@
 from itertools import takewhile
-from math import ceil
 from timeit import timeit
 import numpy
 
@@ -33,9 +32,8 @@ def prime(num: int, primes) -> bool:
 def generate_nums_with_sevens(numbers: int, seven_len: int) -> list[str]:
     lucky = "7" * seven_len
     upper_bound = 10 ** (numbers - seven_len)
-    seq_dash_w = lambda x, y: [str(i).zfill(numbers - seven_len)
-                                for i in range(x, y)]
-    nums_to_insert = seq_dash_w(0, upper_bound)
+    seq_dash_w = lambda w, x, y: [str(i).zfill(w) for i in range(x, y)]
+    nums_to_insert = seq_dash_w(numbers - seven_len, 0, upper_bound)
     res = []
     for position in range(len(lucky) + 1):
         res.extend([n[:position] + lucky + n[position:] for n in nums_to_insert])
@@ -62,13 +60,12 @@ def zad2(numbers, sevens) -> list[int]:
     print("multiples of 3 removed,")
     print(f"now we have {len(set(newmerals))} numbers to check")
     print("generating primes...")
-    primes = primes_upto2(ceil(limit**0.5) + 1)
+    primes = primes_upto2(int(limit**0.5) + 2)
 
     print("checking numbers...")
     return [lucky_num for lucky_num in lucky_nums if prime(lucky_num, primes)]
 
 
-ps = primes_upto2(20)
 lucky_primes = zad2(10, 7)
 print(f"liczba wystąpień hiperszczęśliwych liczb pierwszych między \
 {10**9} a {10**10}: {len(lucky_primes)}")

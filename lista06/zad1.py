@@ -38,6 +38,7 @@ size = window_size // edge_len
 # proportion = 8 / 16
 NEIGH = ((1, 0), (0, 1), (-1, 0), (0, -1))
 
+
 def move_points_by_vec(vec: tuple[int], pts):
     return map(lambda x: (x[0] + vec[0], x[1] + vec[1]), pts)
 

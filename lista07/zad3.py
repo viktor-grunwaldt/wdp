@@ -1,5 +1,4 @@
-from collections import Counter
-from operator import itemgetter
+from itertools import groupby
 import os
 import re
 import requests
@@ -22,35 +21,28 @@ def get_lalka(filename: str):
     return data
 
 
-# https://docs.python.org/3/howto/unicode.html#unicode-regular-expressions
-# " Similarly, \w matches a wide variety of Unicode characters but only [a-zA-Z0-9_]in bytes
-# or if re.ASCII is supplied, and \s will match either
-# Unicode whitespace characters or [ \t\n\r\f\v]."
-def calc_weight(word, count, alpha: int) -> int:
-    return (len(word) * count) ** alpha
-
-
-def zad3(alpha):
-    data = get_lalka("data/lalka.txt")
-    # strip unneeded symbols and casefold to remove capitalization problems
+def zad3():
+    # casefold to remove capitalization problems
     # https://www.w3.org/TR/charmod-norm/#definitionCaseFolding
-    data = re.sub(r"[^\w+]", " ", data).casefold()
+    data = get_lalka("data/lalka.txt").casefold()
 
-    # count, calc and order words
-    ct = Counter(data.split()).items()
-    ordered_words = [(w, calc_weight(w, c, alpha)) for w, c in ct]
-    top = sorted(ordered_words, key=itemgetter(1))[-10:]
+    # import list of polish words
+    with open("data/popularne_slowa.txt", "r") as f:
+        polish_words = set(f.read().casefold().split())
 
-    # calc str len for text justing
-    max_col1, max_col2 = (max(len(str(i)) for i in col) for col in zip(*top))
-    print_tabulated = lambda x, y: print(x.rjust(max_col1) + " | " + y.rjust(max_col2))
+    has_funky_letters = lambda s: re.search(r"[ąćęłńóśźż]", s) is None
+    requirements =  lambda s: has_funky_letters(s) and s in polish_words
+    word_len =      lambda s: len(re.sub(r"[^\w+]", "", s))
+    sentence_len =  lambda l: sum(map(word_len, l))
+
+    grps = groupby(data.split(), key=requirements)
+    top10 = sorted((list(grp) for i, grp in grps if i), key=sentence_len, reverse=True)[:10]
+    # print(*p[:10], sep='\n')
 
     # print table
-    print_tabulated("word", "weight")
-    print("-" * max_col1 + "-+-" + "-" * max_col2)
-    for word, weight in reversed(top):
-        print_tabulated(word, str(weight))
+    for sentence in top10:
+        print(" ".join(sentence), end="\n\n\n")
 
 
 if __name__ == "__main__":
-    zad3(1)
+    zad3()

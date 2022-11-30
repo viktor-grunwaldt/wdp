@@ -1,53 +1,36 @@
-import turtle as t
-
-colors = {
-    "❤️": "red",
-    "🧡": "orange",
-    "💛": "yellow",
-    "💚": "green",
-    "💙": "blue",
-    "💜": "purple",
-    "🤎": "brown",
-    "🖤": "black",
-    "🤍": "white",
-}
+from turtle import *
 
 
 def kwadrat(bok):
-    t.begin_fill()
+    begin_fill()
     for i in range(4):
-        t.fd(bok)
-        t.rt(90)
-    t.end_fill()
+      fd(bok)
+      rt(90)
+    end_fill()
+    
+def murek(s,bok):
+  for a in s:
+     if a == 'f':
+         kwadrat(bok)
+         fd(bok)
+     elif a == 'b':
+         kwadrat(bok)
+         fd(bok)         
+     elif a == 'l':
+         bk(bok)
+         lt(90)
+     elif a == 'r':
+        rt(90)
+        fd(bok)
 
+        
+color('black', 'yellow')
 
-def murek(s, bok):
-    for a in s:
-        match a:
-            case "f":
-                kwadrat(bok)
-                t.fd(bok)
-            case "b":
-                kwadrat(bok)
-                t.fd(bok)
-            case "l":
-                t.bk(bok)
-                t.lt(90)
-            case "r":
-                t.rt(90)
-                t.fd(bok)
-            case _:
-                if a in colors:
-                    t.color("black", colors[a])
+ht()
 
+tracer(0,0) # szybkie rysowanie     
+murek('fffffffffrfffffffffflfffffffffrfffffl',10)    
+murek(4 * 'fffffr', 14)    
+update() # uaktualnienie rysunku
 
-t.color("black", "yellow")
-
-t.ht()
-
-t.tracer(0, 0)  # szybkie rysowanie
-murek("fffffffffrffffff🧡fffflfffffffffrfffffl", 10)
-murek(4 * "fffffr", 14)
-t.update()  # uaktualnienie rysunku
-
-t.mainloop()
+input()

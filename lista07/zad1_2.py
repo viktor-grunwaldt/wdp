@@ -1,3 +1,5 @@
+from itertools import product
+from random import shuffle
 import numpy as np
 import turtle as t
 import qrcode
@@ -57,15 +59,22 @@ def test():
         f.write(out)
 
 
-def random_image(img: np.array) -> np.array:
-    old_shape = np.shape(img)
-    new_img = np.reshape(img, newshape=(old_shape[0] * old_shape[1], old_shape[2]))
-    np.random.shuffle(new_img)
+# def random_image(img: np.array) -> np.array:
+#     old_shape = np.shape(img)
+#     new_img = np.reshape(img, newshape=(old_shape[0] * old_shape[1], old_shape[2]))
+#     np.random.shuffle(new_img)
 
-    return np.reshape(new_img, newshape=old_shape)
+#     return np.reshape(new_img, newshape=old_shape)
 
 
-if __name__ == "__main__":
+def random_order(x, y):
+    # cartesian product of two ranges
+    ans = list(product(range(x), range(y)))
+    shuffle(ans)
+    return ans
+
+
+def zad1(animation=False):
     what_is_love("""print("baby don't hurt me")""")
     # test()
     with open("data/obrazek.txt") as f:
@@ -77,15 +86,30 @@ if __name__ == "__main__":
     canvas.setup(700, 600)
     x_begin = -300
     y_begin = 300
-    t.tracer(0, 0)
     t.colormode(255)
-    # t.speed("fastest")
+    # array = np.transpose(array, axes=(1, 0, 2))
+    x, y, _ = array.shape
+    
+    if animation:
+        random_order(x, y)
+        t.tracer(0,0)
+        # t.speed("fastest")
+        iterator = random_order(x, y)
+    else:
+        t.tracer(0, 0)
+        iterator = product(range(x), range(y))
+    
     t.penup()
-    for j, row in enumerate(np.transpose(array, axes=(1, 0, 2))):
-        for i, elem in enumerate(row):
-            x_abs = x_begin + i * edge_len
-            y_abs = y_begin - j * edge_len
-            kwadrat(x_abs, y_abs, edge_len, elem)
 
-    t.update()
+    for i, j in iterator:
+        x_abs = x_begin + i * edge_len
+        y_abs = y_begin - j * edge_len
+        kwadrat(x_abs, y_abs, edge_len, array[i][j])
+        t.update()
+
+    # t.update()
     t.mainloop()
+
+
+if __name__ == "__main__":
+    zad1(True)
