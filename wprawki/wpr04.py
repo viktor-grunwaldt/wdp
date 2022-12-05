@@ -7,7 +7,8 @@ def is_divisible(n: int) -> bool:
 
 
 def dumb_is_prime(n: int):
-    return not any(map(is_divisible(n), range(2, int(n**0.5) + 1)))
+    return all(n%i != 0 for i in range(2, int(n**0.5) + 1))
+    # return not any(map(is_divisible(n), range(2, int(n**0.5) + 1)))
 
 
 # functional
@@ -50,4 +51,7 @@ isperfect = sympy.is_perfect
 totient = sympy.ntheory.factor_.totient
 gcd = sympy.gcd
 
+
+print([i for i in range(2, 50) if dumb_is_prime(i)])
+print([i for i in range(2, 50) if is_perfect_comp(i)])
 print(dumb_catheti(25))

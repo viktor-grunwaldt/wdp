@@ -30,8 +30,8 @@ def zad3():
     with open("data/popularne_slowa.txt", "r") as f:
         polish_words = set(f.read().casefold().split())
 
-    has_funky_letters = lambda s: re.search(r"[ąćęłńóśźż]", s) is None
-    requirements =  lambda s: has_funky_letters(s) and s in polish_words
+    has_no_funky_letters = lambda s: re.search(r"[ąćęłńóśźż]", s) is None
+    requirements =  lambda s: has_no_funky_letters(s) and s in polish_words
     word_len =      lambda s: len(re.sub(r"[^\w+]", "", s))
     sentence_len =  lambda l: sum(map(word_len, l))
 
