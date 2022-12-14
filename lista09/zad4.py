@@ -10,7 +10,7 @@ def d4_roll(rolls: int = 0):
     state = 0
     it = count() if rolls == 0 else range(rolls)
     for i in it:
-        if i % (32 // 2) == 0:
+        if i & 15 == 0:
             state = random.randrange(2 << 32)
         d, m = divmod(state, 4)
         state = d
@@ -21,15 +21,15 @@ def create_board(n, m):
     return np.zeros((n, m), dtype=np.int8) - 1
 
 
-def load_board(file):
+def load_board(file, default_power=0):
     with open(file, "r") as f:
         data = f.readlines()
     matcher = {
         " ": -2,
         ".": -1,
-        "k": 0,
-        "p": 5,
-        "n": 10,
+        "k": 0+default_power,
+        "p": 5+default_power,
+        "n": 10+default_power,
     }
     shape = (len(data) + 2, len(data[0]) + 2)
     array = np.zeros(shape, dtype=np.int8) - 2
@@ -52,7 +52,7 @@ def array_type(n: int):
     return n if n < 0 else n // 5
 
 
-def cycle_board(board: npt.ArrayLike):
+def life_cycle(board: npt.ArrayLike):
     sh = board.shape
     d4 = d4_roll()
     new_board = np.copy(board)
@@ -66,22 +66,25 @@ def cycle_board(board: npt.ArrayLike):
         while board[i + dx, j + dy] < -1:
             dx, dy = NEIGH[next(d4)]
 
-        if board[i + dx, j + dy] == -1:
-            base_power = (board[i, j] // 5) * 5
-            new_board[i + dx, j + dy] = max(base_power, board[i, j] - 1)
-            continue
-
         neig_type = array_type(board[i + dx, j + dy])
         neig_pow = board[i + dx, j + dy] % 5
         self_type = array_type(board[i, j])
         self_pow = board[i, j] % 5
+        
+        if board[i + dx, j + dy] == -1:
+            if self_pow == 0:
+                continue
+            base_power = (board[i, j] // 5) * 5
+            new_board[i + dx, j + dy] = max(base_power, board[i, j] - 1)
+            continue
+
 
         if neig_type == self_type:
             continue
 
-        match (neig_type - self_type) % 3:
+        match (neig_type - self_type + 3) % 3:
             case 0:
-                pass  # draw, doesn't happen
+                continue  # draw, doesn't happen
             case 1:  # neigh won
                 new_neig_power = min(4, neig_pow + 1)
                 new_self_power = max(0, self_pow - 1)
@@ -109,11 +112,11 @@ def cycle_board(board: npt.ArrayLike):
     return new_board
 
 
-
 if __name__ == "__main__":
-    b = load_board("test.txt")
+    b = load_board("test.txt",default_power=4)
+    print_board(b)
     for i in range(20):
-        b = cycle_board(b)
-        print_board(b)
+        b = life_cycle(b)
         print('-'*25)
+        print_board(b)
         time.sleep(0.5)
