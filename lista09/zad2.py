@@ -112,7 +112,7 @@ def find_n_anagrams(query, subword_count):
     arithmetic_product = lambda x: reduce(operator.mul, x)
     sol_count = sum(arithmetic_product(map(len, pair_groups)) for pair_groups in sol)
 
-    # print(*sol, sep="\n")
+    print(*sol, sep="\n")
     # trojki = unpack_tuples(sol)
     #with open("trojki.txt", "w") as f:
     #    f.write('\n'.join(' '.join(t) for t in trojki))
