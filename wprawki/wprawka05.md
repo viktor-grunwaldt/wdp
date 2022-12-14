@@ -1,0 +1,12 @@
+# Jak w większości zadań na tych studiach, treść nie ma specjalnego związku z realnym światem
+
+Rozważmy pewien sport zespołowy, w którym mecze rozgrywane są między dwoma drużynami i mogą skończyć się na trzy sposoby: zwycięstwem którejś ze stron bądź remisem. Międzynarodowe rozgrywki w tym sporcie zarządzane są przez pewną absolutnie skorumpowaną organizację, która zajmuje się przede wszystkim przyjmowaniem bajońskich sum pieniędzy z łapówek i umów sponsoringowych. Jest to możliwe m.in. dzięki dysponowaniu prawem do organizacji cyklicznych wydarzeń pod pretekstem np. mistrzostw świata w rozważanym sporcie, których aktualna edycja odbywa się właśnie w pewnym rządzonym przez autorytarny reżim państwie pozbawionym tradycji tego sportu (m.in. w związku z położeniem w strefie klimatycznej utrudniającej jakąkolwiek aktywność fizyczną), za to posiadającym dostatecznie dużo pieniędzy na kupienie sobie prawa do organizacji mistrzostw. Pieniędzy tych starczyłoby również na zapewnienie odpowiedniego bezpieczeństwa pracy dla robotników budujących stadiony (oczywiście specjalnie na to wydarzenie), ale takie wydatki okazują się zbyteczne i szacuje się, że liczba ofiar śmiertelnych ośmiokrotnie przekracza liczbę sportowców (swoją drogą, w większości również ekstremalnie bogatych) występujących na mistrzostwach, wliczając wszystkich rezerwowych.
+
+Pierwsza część rozgrywek odbywa się w następującym formacie: drużyny podzielone są na grupy wielkości 2n i grają po jednym meczu z każdą inną drużyną w grupie; za zwycięstwo, remis bądź przegraną przyznaje się odpowiednio 3, 1 i 0 punktów. Do kolejnej części awansuje n drużyn, które zgromadziły najwięcej punktów (remisy w tej klasyfikacji są rozstrzygane w skomplikowany sposób, którym nie będziemy się tu zajmować).
+
+Napisz funkcję, która przyjmie jako argument n oraz wypisze:
+
+* wszystkie możliwe listy/krotki (bez powtórzeń) punktów zgromadzonych przez kolejne drużyny, posortowane malejąco (dla n = 1 listy są dwie, [3, 0] oraz [1, 1], dla n = 2 – czterdzieści);
+* najmniejszą liczbę punktów, z jaką można awansować oraz największą, z jaką można odpaść z turnieju (dla n = 1 odpowiednio 1 i 1, dla n = 2 – 2 i 6).
+
+Rozwiązanie może być mało efektywne, np. rozważać wszystkie możliwe wyniki meczów w grupie (np. dla n = 2 to 3^6 = 729; dla n = 3 – 3^20 ≈ 3,5 × 10^9, co może liczyć się już ok. minuty; dla większych argumentów nie będziemy go raczej wywoływać). Jeśli wymyślisz coś sprytniejszego, to super, ale wtedy musisz wytłumaczyć prowadzącemu, dlaczego to jest nadal poprawne.
