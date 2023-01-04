@@ -34,7 +34,7 @@ def create_map(n, size):
       # np.ones((3,3))/5
 
     for _ in range(20):
-        arr = signal.fftconvolve(arr, window)[1:-1, 1:-1]
+        arr = signal.fftconvolve(arr, window, mode='same')
 
     arr *= kolory.shape[0] - 1
     # for row in arr:

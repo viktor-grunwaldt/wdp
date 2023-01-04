@@ -27,9 +27,9 @@ def load_board(file, default_power=0):
     matcher = {
         " ": -2,
         ".": -1,
-        "k": 0+default_power,
-        "p": 5+default_power,
-        "n": 10+default_power,
+        "k": 0 + default_power,
+        "p": 5 + default_power,
+        "n": 10 + default_power,
     }
     shape = (len(data) + 2, len(data[0]) + 2)
     array = np.zeros(shape, dtype=np.int8) - 2
@@ -52,7 +52,7 @@ def array_type(n: int):
     return n if n < 0 else n // 5
 
 
-def life_cycle(board: npt.ArrayLike):
+def update(board: npt.ArrayLike):
     sh = board.shape
     d4 = d4_roll()
     new_board = np.copy(board)
@@ -70,14 +70,13 @@ def life_cycle(board: npt.ArrayLike):
         neig_pow = board[i + dx, j + dy] % 5
         self_type = array_type(board[i, j])
         self_pow = board[i, j] % 5
-        
+
         if board[i + dx, j + dy] == -1:
             if self_pow == 0:
                 continue
             base_power = (board[i, j] // 5) * 5
             new_board[i + dx, j + dy] = max(base_power, board[i, j] - 1)
             continue
-
 
         if neig_type == self_type:
             continue
@@ -107,16 +106,16 @@ def life_cycle(board: npt.ArrayLike):
                 # change neig value
                 if neig_pow == 0:
                     new_value = 0 if new_neig_power == 0 else neig_type * 5 + new_neig_power
-                new_board[i+dx, j+dy] = new_value
-    
+                new_board[i + dx, j + dy] = new_value
+
     return new_board
 
 
 if __name__ == "__main__":
-    b = load_board("test.txt",default_power=4)
+    b = load_board("test.txt", default_power=4)
     print_board(b)
     for i in range(20):
-        b = life_cycle(b)
-        print('-'*25)
+        b = update(b)
+        print("-" * 25)
         print_board(b)
         time.sleep(0.5)
