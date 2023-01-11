@@ -16,7 +16,7 @@ def cesar(word, shift, decode=False):
 
 
 def read_file():
-    with ZipFile("data/sjp-20221023.zip", "r") as zipf:
+    with ZipFile("data/sjp-20221225.zip", "r") as zipf:
         print("files in zip: ", zipf.namelist())
         filename = zipf.namelist()[0]
         with zipf.open(filename, "r") as f:

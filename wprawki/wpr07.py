@@ -1,16 +1,25 @@
 # 3.1958;15937;Rozejście szlaków;15943;Kotuszów;jacobs_trail_None
 # 0.0768;5804;Slavný, rozc.;5799;Slavný;hiking_trail_yellow;hiking_trail_blue
 # dł;nr;begin;nr;end;(colors)
+from more_itertools import flatten
+
 with open("data/w7_plg.csv", "r") as f:
+    data = f.read()
+
+
+colors = [line.split(';')[5:] for line in data.splitlines()]
+colors = set(flatten(colors))
+print(colors)
+for color in colors:
     vertices_names = dict()
     pointers = dict()
     pools = []
-    for line in f.readlines():
-        _, nr1, name1, nr2, name2, *colors = line.strip().split(";")
+    for line in data.splitlines():
+        _, nr1, name1, nr2, name2, *edge_colors = line.split(";")
         nr1, nr2 = map(int, (nr1, nr2))
         vertices_names[nr1] = name1
         vertices_names[nr2] = name2
-        if "hiking_trail_red" not in colors:
+        if color not in edge_colors:
             continue
 
         match (nr1 in pointers, nr2 in pointers):
@@ -48,4 +57,4 @@ with open("data/w7_plg.csv", "r") as f:
                 pointers[nr2] = len(pools)
                 pools.append({nr1, nr2})
 
-    print("red_trail", sum(1 for i in pools if i))
+    print(color, sum(1 for i in pools if i))

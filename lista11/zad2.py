@@ -13,3 +13,4 @@ def pnn(word: str) -> str:
 
 
 print(pnn("indianin"))
+print(pnn(""))
