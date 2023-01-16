@@ -34,7 +34,7 @@ def move(x, y):
 
 
 def kwadrat(x, y, bok, kolor):
-    move(x, y)
+    t.goto(x,y)
     t.begin_fill()
     t.fillcolor(kolor)
     for i in range(4):

@@ -1,0 +1,11 @@
+# Wprawka nr 8 (PLG)
+
+Zadanie 2 z listy nr 7 polegało na narysowaniu obrazka w taki sposób, by jego kolejne piksele ("duże", tj. kwadraty o ustalonym boku) pojawiały się w kolejności losowej, z jednostajnym rozkładem prawdopodobieństwa wyboru jeszcze nienarysowanego piksela.
+
+Teraz będzie należało rysować piksele o jednym kolorze, np. czarnym (połączenie tego podejścia z rysowaniem obrazka jak w tamtym zadaniu zostawiamy jako nietrudne ćwiczenie poza zajęciami) również w losowej kolejności, ale tak, by nowo rysowany piksel zawsze sąsiadował (tj. miał wspólny bok) z jakimś już narysowanym. Rozkład pradopodobieństwa nadal powinien być jednostajny, ale oczywiście możliwych wyborów jest mniej. Nie należy "losować do skutku" – np. losować piksel spośród wszystkich (albo wszystkich nienarysowanych) tak długo, aż natrafimy na właściwy.
+
+Pierwszy piksel wybieramy z "całej planszy" (której rozmiary powinny być np. parametrami funkcji). Tak jak w oryginalnym zadaniu, ma być widoczny efekt animacji, a okno powinno być odświeżane np. co piksel (choć oczywiście może to się dziać bardzo często). Ten wariant zadania jest za 1 p.
+
+Wersja skomplikowana za 2 p.: przed losowaniem położenia nowego piksela, należy wylosować jego kolor – z prawdopodobieństwem τ powinien być inny niż "zwykły", np. czerwony. τ również powinno być parametrem funkcji (i chyba nie za duże, żeby efekty były "fajne", ale to już do wyeksperymentowania). Dodatkowa reguła jest taka, że każdy czarny piksel może sąsiadować z najwyżej jednym czerwonym; czerwonym pikselom osobiście jest wszystko jedno, ale to ogranicza również możliwe miejsca, w których będzie możliwe dorysowywanie czerwonych pikseli.
+
+Funkcja powinna zapełniać planszę najbardziej, jak się da. Ponieważ mogą zdarzyć się sytuacje, w których możliwe jest dorysowanie piksela tylko jednego z kolorów, oznacza to, że (aby nie "losować do skutku") trzeba taką sytuację wykryć jeszcze przed losowaniem koloru, które wtedy należy pominąć i przejść do losowania miejsca dla nowego piksela jedynego dostępnego koloru. Co więcej, może zdarzyć się, że nowych pikseli nie będzie się dało dorysować w żadnym kolorze, mimo wolnych miejsc – wtedy oczywiście należy je zostawić wolne.
